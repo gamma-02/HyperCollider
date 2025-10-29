@@ -28,14 +28,14 @@ public class CrouchLogic {
 
         boolean noCol = lvl.noCollision(curr);
         if (noCol) {
-            Vec3 dm = Entity.collideBoundingBox(
+            Vec3 deltaXMax = Entity.collideBoundingBox(
                     entity,
                     new Vec3(-(x + pad), 0, 0),
                     curr, lvl,
                     Collections.emptyList()
             );
             return new Vec3(
-                    ((x + pad) + dm.x) - pad,
+                    ((x + pad) + deltaXMax.x) - pad,
                     vec3.y,
                     z
             );
@@ -50,7 +50,7 @@ public class CrouchLogic {
 
         boolean noCol = lvl.noCollision(curr);
         if (noCol) {
-            Vec3 dm = Entity.collideBoundingBox(
+            Vec3 deltaZMax = Entity.collideBoundingBox(
                     entity,
                     new Vec3(0, 0, -(z + pad)),
                     curr, lvl,
@@ -59,13 +59,14 @@ public class CrouchLogic {
             return new Vec3(
                     x,
                     vec3.y,
-                    ((z + pad) + dm.z) - pad
+                    ((z + pad) + deltaZMax.z) - pad
             );
         }
 
         return new Vec3(x, vec3.y, z);
     }
 
+    //cir is the return value, this constrains player movement when crouching near edges
     public static void handle(Abilities abilities, Entity entity, Vec3 vec3, MoverType moverType, CallbackInfoReturnable<Vec3> cir, boolean stayingOnGroundSurface, boolean aboveGround) {
         if (!abilities.flying && vec3.y <= 0.0 && (moverType == MoverType.SELF || moverType == MoverType.PLAYER) && stayingOnGroundSurface && aboveGround) {
             double x = vec3.x;
