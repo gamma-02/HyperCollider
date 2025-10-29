@@ -28,14 +28,14 @@ public class CrouchLogic {
 
         boolean noCol = lvl.noCollision(curr);
         if (noCol) {
-            Vec3 deltaXMax = Entity.collideBoundingBox(
+            Vec3 deltaMotionX = Entity.collideBoundingBox(
                     entity,
                     new Vec3(-(x + pad), 0, 0),
                     curr, lvl,
                     Collections.emptyList()
             );
             return new Vec3(
-                    ((x + pad) + deltaXMax.x) - pad,
+                    ((x + pad) + deltaMotionX.x) - pad,
                     vec3.y,
                     z
             );
@@ -50,7 +50,7 @@ public class CrouchLogic {
 
         boolean noCol = lvl.noCollision(curr);
         if (noCol) {
-            Vec3 deltaZMax = Entity.collideBoundingBox(
+            Vec3 deltaMotionZ = Entity.collideBoundingBox(
                     entity,
                     new Vec3(0, 0, -(z + pad)),
                     curr, lvl,
@@ -59,7 +59,7 @@ public class CrouchLogic {
             return new Vec3(
                     x,
                     vec3.y,
-                    ((z + pad) + deltaZMax.z) - pad
+                    ((z + pad) + deltaMotionZ.z) - pad
             );
         }
 
